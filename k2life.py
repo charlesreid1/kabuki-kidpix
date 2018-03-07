@@ -23,7 +23,7 @@ from kabuki import kabuki_mask
 # . . . . . . . .
 
 def cocacola():
-    kabuki_js("cocacola.png")
+    kabuki_js("cocacola.png",padding_top=20)
 
 def github():
     kabuki_js("ghlogo.jpg")
@@ -75,5 +75,5 @@ def kabuki_js(img_filename, **kwargs):
 
 if __name__=="__main__":
     cocacola()
-    github()
+    #github()
 
