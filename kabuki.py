@@ -17,7 +17,7 @@ to k2life.py to make a Life grid
 
 def kabuki_mask( image_filename, size, thresh ):
 
-    mask_filename  = re.sub('\.jpg','_mask.jpg',image_filename)
+    mask_filename  = re.sub('\.%s'%image_filename[-3:],'_mask.%s'%image_filename[-3:],image_filename)
 
     # open image
     im = Image.open(image_filename)
@@ -54,6 +54,7 @@ if __name__=="__main__":
     FINAL_SIZE = 100,100
     BRIGHTNESS_THRESHOLD = 150
 
-    _ = kabuki_mask("ghlogo.jpg",FINAL_SIZE,BRIGHTNESS_THRESHOLD)
-    _ = kabuki_mask("ghlogox.jpg",FINAL_SIZE,BRIGHTNESS_THRESHOLD)
+    _ = kabuki_mask("cocacola.png",FINAL_SIZE,BRIGHTNESS_THRESHOLD)
+
+    #_ = kabuki_mask("ghlogox.jpg",FINAL_SIZE,BRIGHTNESS_THRESHOLD)
 

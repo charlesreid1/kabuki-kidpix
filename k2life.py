@@ -22,14 +22,25 @@ from kabuki import kabuki_mask
 # * * . . * * * .
 # . . . . . . . .
 
-if __name__=="__main__":
+def cocacola():
+    kabuki_js("cocacola.png")
 
-    FINAL_SIZE = 75,75
-    BRIGHTNESS_THRESHOLD = 150
+def github():
+    kabuki_js("ghlogo.jpg")
 
-    mask = kabuki_mask("ghlogo.jpg",FINAL_SIZE,BRIGHTNESS_THRESHOLD)
+def kabuki_js(img_filename, **kwargs):
+
+    if('final_size' not in kwargs.keys()):
+        kwargs['final_size'] = (100,100)
+    if('brightness_threshold' not in kwargs.keys()):
+        kwargs['brightness_threshold'] = 200
+    if('padding_left' not in kwargs.keys()):
+        kwargs['padding_left'] = 0
+    if('padding_top' not in kwargs.keys()):
+        kwargs['padding_top'] = 0
+
+    mask = kabuki_mask(img_filename,kwargs['final_size'],kwargs['brightness_threshold'])
     arr = np.array(mask)
-    print(np.shape(arr))
 
     # We are constructing a list of dictionaries
     # One key per dictionary, one row per dictionary
@@ -42,14 +53,14 @@ if __name__=="__main__":
         # Check each column in this row 
         # to see if it is bright (switched on)
         for col in range(np.shape(arr)[1]):
-            px = arr[row][col][0]
-            if(px>BRIGHTNESS_THRESHOLD):
-                columns_in_this_row.append(col)
+            px = arr[row][col][3]
+            if(px>kwargs['brightness_threshold']):
+                columns_in_this_row.append(col + kwargs['padding_left'])
 
         # Assemble the dictionary
         if(len(columns_in_this_row)>0):
             d = {}
-            d[str(row)] = columns_in_this_row
+            d[str(row + kwargs['padding_top'])] = columns_in_this_row
             initdicts.append(d)
 
 
@@ -59,7 +70,10 @@ if __name__=="__main__":
     print()
     print("Here is your final string:")
     print()
-    print("initialState : '[%s]',"%(result_goodquotes) )
+    print("GOL.initialState = '[%s]';"%(result_goodquotes) )
 
 
+if __name__=="__main__":
+    cocacola()
+    github()
 
