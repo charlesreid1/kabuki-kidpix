@@ -23,13 +23,19 @@ from kabuki import kabuki_mask
 # . . . . . . . .
 
 def cocacola():
-    kabuki_js("cocacola.png", padding_top=20, brightness_threshold=50, final_size=(100,100))
+    print("-"*40)
+    print("coca cola logo:")
+    kabuki_js("img/cocacola.png", padding_top=20, brightness_threshold=50, final_size=(100,100))
 
 def github():
-    kabuki_js("ghlogo.jpg", padding_top=5, final_size=(50,50))
+    print("-"*40)
+    print("github logo:")
+    kabuki_js("img/ghlogo.jpg", padding_top=5, final_size=(80,80))
 
 def obama():
-    kabuki_js("obama.png", padding_top=5, brightness_threshold=150, final_size=(100,100))
+    print("-"*40)
+    print("obama signature:")
+    kabuki_js("img/obama.png", padding_top=10, padding_left=3, brightness_threshold=120, final_size=(110,110), invert=True)
 
 def kabuki_js(img_filename, **kwargs):
 
@@ -79,7 +85,7 @@ def kabuki_js(img_filename, **kwargs):
 
 
 if __name__=="__main__":
-    #cocacola()
-    #github()
+    cocacola()
+    github()
     obama()
 
