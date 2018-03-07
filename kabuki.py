@@ -31,7 +31,7 @@ def kabuki_mask( image_filename, size, thresh, invert=False):
 
     # invert?
     if(invert):
-        concolim = PIL.ImageOps.invert(concolim)
+        concolim = ImageOps.invert(concolim)
 
     # sharpen edges step
     sharpenerizer = ImageEnhance.Sharpness(concolim)
