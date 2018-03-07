@@ -23,23 +23,28 @@ from kabuki import kabuki_mask
 # . . . . . . . .
 
 def cocacola():
-    kabuki_js("cocacola.png",padding_top=20)
+    kabuki_js("cocacola.png", padding_top=20, brightness_threshold=50, final_size=(100,100))
 
 def github():
-    kabuki_js("ghlogo.jpg")
+    kabuki_js("ghlogo.jpg", padding_top=5, final_size=(50,50))
+
+def obama():
+    kabuki_js("obama.png", padding_top=5, brightness_threshold=150, final_size=(100,100))
 
 def kabuki_js(img_filename, **kwargs):
 
     if('final_size' not in kwargs.keys()):
         kwargs['final_size'] = (100,100)
     if('brightness_threshold' not in kwargs.keys()):
-        kwargs['brightness_threshold'] = 200
+        kwargs['brightness_threshold'] = 150
     if('padding_left' not in kwargs.keys()):
         kwargs['padding_left'] = 0
     if('padding_top' not in kwargs.keys()):
         kwargs['padding_top'] = 0
+    if('invert' not in kwargs.keys()):
+        kwargs['invert'] = False
 
-    mask = kabuki_mask(img_filename,kwargs['final_size'],kwargs['brightness_threshold'])
+    mask = kabuki_mask(img_filename,kwargs['final_size'],kwargs['brightness_threshold'],kwargs['invert'])
     arr = np.array(mask)
 
     # We are constructing a list of dictionaries
@@ -53,7 +58,7 @@ def kabuki_js(img_filename, **kwargs):
         # Check each column in this row 
         # to see if it is bright (switched on)
         for col in range(np.shape(arr)[1]):
-            px = arr[row][col][3]
+            px = arr[row][col]
             if(px>kwargs['brightness_threshold']):
                 columns_in_this_row.append(col + kwargs['padding_left'])
 
@@ -74,6 +79,7 @@ def kabuki_js(img_filename, **kwargs):
 
 
 if __name__=="__main__":
-    cocacola()
+    #cocacola()
     #github()
+    obama()
 

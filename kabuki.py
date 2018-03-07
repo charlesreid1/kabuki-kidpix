@@ -1,6 +1,6 @@
 import numpy as np
 import re
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageEnhance, ImageOps
 
 # https://pillow.readthedocs.io/en/latest/reference/ImageEnhance.html
 
@@ -15,7 +15,7 @@ to a 2D 0s and 1s array, and passed
 to k2life.py to make a Life grid
 """
 
-def kabuki_mask( image_filename, size, thresh ):
+def kabuki_mask( image_filename, size, thresh, invert=False):
 
     mask_filename  = re.sub('\.%s'%image_filename[-3:],'_mask.%s'%image_filename[-3:],image_filename)
 
@@ -27,9 +27,12 @@ def kabuki_mask( image_filename, size, thresh ):
     conim = contraster.enhance(1.0)
 
     # de-colorize step
-    colorizer = ImageEnhance.Color(conim)
-    concolim = colorizer.enhance(0.0)
-    
+    concolim = ImageOps.grayscale(conim)
+
+    # invert?
+    if(invert):
+        concolim = PIL.ImageOps.invert(concolim)
+
     # sharpen edges step
     sharpenerizer = ImageEnhance.Sharpness(concolim)
     sconcolim = sharpenerizer.enhance(2.0)
